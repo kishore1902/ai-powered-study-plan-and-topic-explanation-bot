@@ -4,6 +4,12 @@ GapFinder is a study-planning web app that helps learners identify what to revie
 
 The app combines keyword retrieval over a learner's own materials with Groq-hosted language models. Retrieved passages are supplied as context for AI-generated questions and explanations; mastery scores and study schedules are calculated by application code.
 
+## Live deployment
+
+Visit [GapFinder on Vercel](https://gapfinder-ai-git-main-sai-kishore-s-projects.vercel.app/).
+
+If Vercel asks you to sign in before opening the app, review the project's Deployment Protection settings to allow public access.
+
 ## What you can do
 
 - Create an account and keep separate study data for each user.
