@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Log in · GapFinder AI</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="auth-layout">
+  <section class="auth-story" aria-label="About GapFinder">
+    <div class="brand"><span class="brand-mark">G</span><span>GapFinder</span></div>
+    <div class="auth-copy">
+      <h1>Make your next study session count.</h1>
+      <p>Turn your course materials into a clear picture of what you know, what needs work, and what to do next.</p>
+      <div class="auth-points">
+        <div class="auth-point"><span class="auth-point-icon">01</span><span><b>Know your gaps</b><br>Find the topics that need your attention.</span></div>
+        <div class="auth-point"><span class="auth-point-icon">02</span><span><b>Learn from your materials</b><br>Practice with questions grounded in your own notes.</span></div>
+        <div class="auth-point"><span class="auth-point-icon">03</span><span><b>Follow a focused plan</b><br>Put your available study time to better use.</span></div>
+      </div>
+    </div>
+    <div class="auth-foot">A more focused way to prepare.</div>
+  </section>
+  <section class="auth-main">
+    <div class="auth-form-wrap">
+      <div class="brand auth-mobile-brand"><span class="brand-mark">G</span><span>GapFinder</span></div>
+      <p class="muted">Welcome back</p>
+      <form class="card" id="f" autocomplete="on">
+        <h2>Log in to your account</h2>
+        <label>Email<input type="email" id="email" autocomplete="username" required></label>
+        <label>Password<input type="password" id="pw" autocomplete="current-password" required></label>
+        <div class="err" id="err" role="alert" aria-live="polite"></div>
+        <button type="submit" id="go">Log in</button>
+        <p><button type="button" class="sec" id="demo">Use demo credentials</button></p>
+        <p class="muted">New to GapFinder? <a href="signup.html">Create an account</a></p>
+      </form>
+      <p class="muted demo-note">Demo access: demo@gapfinder.app / demo1234</p>
+    </div>
+  </section>
+</main>
+<script src="auth.js"></script>
+<script>
+  GF.redirectIfLoggedIn();
+  const $ = s => document.querySelector(s);
+  $('#demo').onclick = () => { $('#email').value = 'demo@gapfinder.app'; $('#pw').value = 'demo1234'; };
+  $('#f').onsubmit = async e => {
+    e.preventDefault();
+    $('#err').textContent = '';
+    $('#go').disabled = true;
+    try {
+      GF.setSession(await GF.api('/auth/login', { method: 'POST', body: { email: $('#email').value, password: $('#pw').value }, noRedirect: true }));
+      location.href = 'app.html';
+    } catch (x) { $('#err').textContent = x.message; $('#go').disabled = false; }
+  };
+</script>
+</body>
+</html>
